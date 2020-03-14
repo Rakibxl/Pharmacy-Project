@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "GetReport";
+}
+
+<h2>GetReport</h2>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#startDate").datepicker();
+        $("#endDate").datepicker();
+    });
+
+        function GetSalesreport() {
+            var productcode = $("#Product :selected").val();
+            if (productcode == "" || productcode == 'undefined' || productcode==" ") {
+                productcode = "%";
+            }
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '@Url.Action("GetReport", "Report")',
+                data: { "startdate": startDate, "enddate": endDate, "productcode": productcode, "Type": "ProductAll" },
+                success: function (result) {
+                    if (result.length > 0) {
+                        var count = 0;
+                        $("#salesReportTable tbody tr").remove();
+                        $.each(result, function (i, record) {
+                            count = count + 1;
+                            var productCode = record["ProductCode"];
+                            var productName = record["ProductName"];
+                            var quantity = record["Quantity"];
+                            var unitPrice = record["UnitPrice"];
+                            var actualPrice = record["ActualPrice"];
+                            var totalCost = record["TotalCost"];
+                            var expectedClientPrice = record["ExpectedClientPrice"];
+                            var rackID = record["RackId"];
+
+                            $("#salesReportTable tbody").append('<tr><td >' + count + '</td><td >' + productCode + '</td><td >' + productName + '</td>\
+                            <td >' + quantity + '</td> <td >' + unitPrice + '</td>  <td >' + actualPrice + '</td>  <td >' + totalCost + '</td> <td >' + expectedClientPrice + '</td><td >' + rackID + '</td>\
+                            <td><a href="#" onClick="fnDetailsReport('+ productCode + ')">View Details</a> </td></tr>');
+                        });
+                    } else {
+                        $("#salesReportTable tbody tr").remove();
+                        $("#salesReportTable tbody").append('<tr><td colspan="9" align="center"><b>No Record Found</b></td></tr>');
+                    }
+                    console.log(JSON.stringify(result));
+                },
+                error: function (xhr, ajaxOptions, error) {
+                    alert(xhr.status);
+                    //alert(xhr.responseText);
+                    //alert(error);
+                }
+            });
+        }
+        function fnDetailsReport(productcode) {
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '@Url.Action("GetReport", "Report")',
+                data: { "startdate": startDate, "enddate": endDate, "productcode": productcode, "Type": "ProductDetails" },
+                success: function (result) {
+                    var DetailsTable = '<table class="table table-bordered report-table"><thead><tr>\
+                                            <td># </td> <td>Product Code </td> <td>Product Name </td> <td>Quantity </td> <td>Unit Price </td> <td>Actual Price </td> <td>Total Cost </td> <td>Expected Client Price </td><td>Rest of Amount </td> <td>Rack ID</td><td>Sales Date</td><td>Saled By </td></tr></thead><tbody>';
+                    if (result.length > 0) {
+                        var count = 0;
+
+                        $.each(result, function (i, record) {
+                            count = count + 1;
+                            var productCode = record["ProductCode"];
+                            var productName = record["ProductName"];
+                            var quantity = record["Quantity"];
+                            var unitPrice = record["UnitPrice"];
+                            var actualPrice = record["ActualPrice"];
+                            var totalCost = record["TotalCost"];
+                            var expectedClientPrice = record["ExpectedClientPrice"];
+                            var rackID = record["RackId"];
+                            var insertDate = record["InsertDate"];
+                            var insertedBy = record["InsertedBy"];
+                            var restOfAmount = record["RestOfAmount"];
+
+                            DetailsTable = DetailsTable + '<tr><td >' + count + '</td><td >' + productCode + '</td><td >' + productName + '</td>\
+                            <td >' + quantity + '</td> <td >' + unitPrice + '</td>  <td >' + actualPrice + '</td>  <td >' + totalCost + '</td> <td >' + expectedClientPrice + '</td>\
+                            <td >' + restOfAmount + '</td>  <td >' + rackID + '</td>  <td >' + insertDate + '</td>  <td >' + insertedBy + '</td></tr>';
+
+
+
+                        });
+                    } else {
+                        DetailsTable = DetailsTable + '<tr><td colspan="11" align="center"><b>No Record Found</b></td></tr>';
+                    }
+                    DetailsTable = DetailsTable + '</tbody></table>';
+                    var modalTitle = "Product Details";
+                    var modalBody = DetailsTable;
+                    $("#customModalBody").html(modalBody);
+                    $("#customModalLabel").html(modalTitle);
+                    $("#modalDialog").css("width", "90%")
+                    $("#saveInfo").hide();
+                    $('#customModal').modal("show")
+                    console.log(JSON.stringify(result));
+                },
+                error: function (xhr, ajaxOptions, error) {
+                    alert(xhr.status);
+                    //alert(xhr.responseText);
+                    //alert(error);
+                }
+            });
+        }
+</script>
+
+@*<input type="text" id="startDate"/>
+<input type="text" id="endDate"/>
+<select>
+    <option>All</option>
+    <option>Napa</option>
+    <option>ENter</option>
+</select>
+<input type="button" value="Search" onclick="GetSalesreport()" />*@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center">Report Page</h2>
+            <br />
+            <div class="row">
+                <form class="form">
+
+                    <div class="col-sm-3">
+                        <input id="startDate"   name="date1" class="form-control" placeholder="StartDate">
+                    </div>
+                    <div class="col-sm-3">
+                        <input  id="endDate"   name="date2" class="form-control" placeholder="EndDate">
+                    </div>
+                    <div class="col-sm-3">
+                    @Html.DropDownList("Product","ALL")   
+
+
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="button" onclick="GetSalesreport()" value="Search" class="btn btn-info col-sm-12">
+                    </div>
+                </form>
+            </div>
+            <br />
+        </div>
+        <br>
+        <br>
+    </div>
+
+
+    <div class="col-md-12 report-template">
+        <table id="salesReportTable" class="table table-bordered report-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ProductCode</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Actual Price</th>
+                    <th>Total Cost</th>
+                    <th>Expected Price</th>
+                    <th>Rack</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </div>
+
+</div>
+
+    

@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+        <div class="row padding-top-left-right">
+            <div class="col-lg-6 col-xs-12">
+                <!-- small box -->
+                <a href="#">
+                    <div class="small-box bg-aqua" style="min-height:100px; padding-top:15%">
+                        <div class="inner text-center">
+                            <h3> <a href="@Url.Action("ProductPurchase", "Purchase")"> POS System</a></h3>
+                            <p>Start New Sale</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+
+                    </div>
+                </a>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-6 col-xs-12">
+                <!-- small box -->
+                <a href="#">
+                    <div class="small-box bg-green" style="min-height: 100px; padding-top:15%">
+                        <div class="inner text-center">
+                            <h3> <a href="@Url.Action("Index", "Product")"> Inventory System</a></h3>
+                            <p>Add delete Items From Inventory</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-6 col-xs-12">
+                <!-- small box -->
+                <a href="#">
+                    <div class="small-box bg-yellow" style="min-height: 100px; padding-top:15%">
+                        <div class="inner text-center">
+                            <h3> <a href="@Url.Action("Index", "PurchaseItem")"> Purchase System</a></h3>
+                            <p>Purchase new product</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-6 col-xs-12">
+                <!-- small box -->
+                <a href="@Url.Action("Index", "Report")"> Purchase System</a>  <div class="small-box bg-red" style="min-height: 100px; padding-top:15%">
+                        <div class="inner text-center">
+                            <h3><a href="@Url.Action("GetReport", "Report")"> Reporting</a></h3>
+                            <p>Product, Index, Purchase, employee Reports</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <!-- ./col -->
+        </div>
+        <!-- /.row -->

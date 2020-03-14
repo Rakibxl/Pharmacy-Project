@@ -1,0 +1,83 @@
+﻿
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center">Report Page</h2>
+                <br />
+                <div class="row">
+                    <form class="form">
+                        <div class="col-sm-4">
+                            <input type="text" name="search" class="form-control" placeholder="Search">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="date" name="date1" class="form-control" placeholder="From Date">
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="date" name="date2" class="form-control" placeholder="To Date">
+                        </div>
+                        <div class="col-sm-2">
+                            <input type="submit" name="submit" class="btn btn-info col-sm-12">
+                        </div>
+                    </form>
+                </div>
+                <br />
+            </div>
+            <br>
+            <br>
+
+        </div>
+    </div>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+<style>
+    .custom-jumbo {
+        margin-top: 15px;
+    }
+
+    .form-control:focus {
+        background: #eee;
+        box-shadow: none;
+    }
+</style>
+
+<script type="text/javascript">
+        function GetSalesreport() {
+            var search = $("#search").val();
+            var date1 = $("#date1").val();
+            var date2 = $("#date2").val();
+            var productcode = $("#Product").val();
+            alert(productcode + " is productcode");
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '@Url.Action("GetReport", "Report")',
+                data: { "startdate": date1, "enddate": date2, "productcode": productcode },
+                success: function (result) {
+                    alert(result);
+                    console.log(JSON.stringify(result));
+                },
+                error: function (xhr, ajaxOptions, error) {
+                     alert(xhr.status);
+                    //alert(xhr.responseText);
+                    //alert(error);
+                }
+            });
+        }
+</script>

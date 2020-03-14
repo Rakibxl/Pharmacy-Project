@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PharmacyModelStoreContainer" CdmEntityContainer="PharmacyEntities">
+    <FunctionImportMapping FunctionImportName="prGetProduct" FunctionName="PharmacyModel.Store.prGetProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PharmacyModel.prGetProduct_Result">
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+          <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+          <ScalarProperty Name="RackID" ColumnName="RackID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="prISalesIntem" FunctionName="PharmacyModel.Store.prISalesIntem" />
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="PharmacyModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="PharmacyModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+          <ScalarProperty Name="Religion" ColumnName="Religion" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="NationalId" ColumnName="NationalId" />
+          <ScalarProperty Name="PermanentAddress" ColumnName="PermanentAddress" />
+          <ScalarProperty Name="PresentAddress" ColumnName="PresentAddress" />
+          <ScalarProperty Name="MothersName" ColumnName="MothersName" />
+          <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployeerId" ColumnName="EmployeerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="PharmacyModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="RackID" ColumnName="RackID" />
+          <ScalarProperty Name="ProductTypeCode" ColumnName="ProductTypeCode" />
+          <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+          <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductCategories">
+      <EntityTypeMapping TypeName="PharmacyModel.ProductCategory">
+        <MappingFragment StoreEntitySet="ProductCategory">
+          <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+          <ScalarProperty Name="ProductTypeCode" ColumnName="ProductTypeCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseItems">
+      <EntityTypeMapping TypeName="PharmacyModel.PurchaseItem">
+        <MappingFragment StoreEntitySet="PurchaseItem">
+          <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+          <ScalarProperty Name="RackId" ColumnName="RackId" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+          <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="RestOfAmount" ColumnName="RestOfAmount" />
+          <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+          <ScalarProperty Name="UnitType" ColumnName="UnitType" />
+          <ScalarProperty Name="ClientPrice" ColumnName="ClientPrice" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Racks">
+      <EntityTypeMapping TypeName="PharmacyModel.Rack">
+        <MappingFragment StoreEntitySet="Rack">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RackId" ColumnName="RackId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="PharmacyModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="prSalesReport" FunctionName="PharmacyModel.Store.prSalesReport">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PharmacyModel.prSalesReport_Result">
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="ActualPrice" ColumnName="ActualPrice" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="ExpectedClientPrice" ColumnName="ExpectedClientPrice" />
+          <ScalarProperty Name="RackId" ColumnName="RackId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="prSalesReportDetails" FunctionName="PharmacyModel.Store.prSalesReportDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PharmacyModel.prSalesReportDetails_Result">
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="ActualPrice" ColumnName="ActualPrice" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="ExpectedClientPrice" ColumnName="ExpectedClientPrice" />
+          <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="RestOfAmount" ColumnName="RestOfAmount" />
+          <ScalarProperty Name="RackId" ColumnName="RackId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="prPurchaseItem" FunctionName="PharmacyModel.Store.prPurchaseItem" />
+    <FunctionImportMapping FunctionImportName="prSalesProduct" FunctionName="PharmacyModel.Store.prSalesProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PharmacyModel.prSalesProduct_Result">
+          <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ClientUnitPrice" ColumnName="ClientUnitPrice" />
+          <ScalarProperty Name="Quentity" ColumnName="Quentity" />
+          <ScalarProperty Name="RestOfItem" ColumnName="RestOfItem" />
+          <ScalarProperty Name="Rack" ColumnName="Rack" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

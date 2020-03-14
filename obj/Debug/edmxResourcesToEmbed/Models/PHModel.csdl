@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PharmacyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PharmacyEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="prGetProduct" ReturnType="Collection(PharmacyModel.prGetProduct_Result)">
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="prISalesIntem">
+      <Parameter Name="ProductCode" Mode="In" Type="String" />
+      <Parameter Name="Quantity" Mode="In" Type="Decimal" />
+      <Parameter Name="UnitPrice" Mode="In" Type="String" />
+      <Parameter Name="TotoalCost" Mode="In" Type="String" />
+      <Parameter Name="RestOfAmount" Mode="In" Type="Decimal" />
+      <Parameter Name="UserID" Mode="In" Type="String" />
+      <Parameter Name="CreationDate" Mode="In" Type="DateTime" />
+      <Parameter Name="Optional" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="Customers" EntityType="PharmacyModel.Customer" />
+    <EntitySet Name="Employees" EntityType="PharmacyModel.Employee" />
+    <EntitySet Name="Products" EntityType="PharmacyModel.Product" />
+    <EntitySet Name="ProductCategories" EntityType="PharmacyModel.ProductCategory" />
+    <EntitySet Name="PurchaseItems" EntityType="PharmacyModel.PurchaseItem" />
+    <EntitySet Name="Racks" EntityType="PharmacyModel.Rack" />
+    <EntitySet Name="Users" EntityType="PharmacyModel.User" />
+    <FunctionImport Name="prSalesReport" ReturnType="Collection(PharmacyModel.prSalesReport_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ProductCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="prSalesReportDetails" ReturnType="Collection(PharmacyModel.prSalesReportDetails_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ProductCode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="prPurchaseItem">
+      <Parameter Name="ProductCode" Mode="In" Type="Int32" />
+      <Parameter Name="Quantity" Mode="In" Type="Int32" />
+      <Parameter Name="UnitPrice" Mode="In" Type="Double" />
+      <Parameter Name="ClintPrice" Mode="In" Type="Double" />
+      <Parameter Name="ActionType" Mode="In" Type="String" />
+      <Parameter Name="Remarks" Mode="In" Type="String" />
+      <Parameter Name="InsertDate" Mode="In" Type="DateTime" />
+      <Parameter Name="InsertedBy" Mode="In" Type="String" />
+      <Parameter Name="InvoiceNo" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="prSalesProduct" ReturnType="Collection(PharmacyModel.prSalesProduct_Result)">
+      <Parameter Name="ProductCode" Mode="In" Type="String" />
+      <Parameter Name="Type" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="prGetProduct_Result">
+    <Property Type="Int32" Name="ProductCode" Nullable="false" />
+    <Property Type="String" Name="ManufacturerName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Frequency" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="ProductType" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="RackID" Nullable="true" MaxLength="300" />
+  </ComplexType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile" Type="Int32" />
+    <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeerId" />
+    </Key>
+    <Property Name="EmployeerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FathersName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MothersName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PresentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PermanentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NationalId" Type="Int32" />
+    <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile" Type="Int32" />
+    <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductCode" />
+    </Key>
+    <Property Name="ProductCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ManufacturerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Frequency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProductTypeCode" Type="Int32" />
+    <Property Name="RackID" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ProductCategory">
+    <Key>
+      <PropertyRef Name="ProductTypeCode" />
+    </Key>
+    <Property Name="ProductTypeCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PurchaseItem">
+    <Key>
+      <PropertyRef Name="RecordID" />
+    </Key>
+    <Property Name="RecordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductCode" Type="Int32" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="UnitPrice" Type="Double" />
+    <Property Name="TotalCost" Type="Double" />
+    <Property Name="ClientPrice" Type="Double" />
+    <Property Name="UnitType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ActionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="RestOfAmount" Type="Int32" />
+    <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="InsertDate" Type="DateTime" Precision="3" />
+    <Property Name="InsertedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="RackId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Rack">
+    <Key>
+      <PropertyRef Name="RackId" />
+    </Key>
+    <Property Name="RackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="prSalesReport_Result">
+    <Property Type="Int32" Name="ProductCode" Nullable="true" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="Double" Name="UnitPrice" Nullable="true" />
+    <Property Type="Double" Name="ActualPrice" Nullable="true" />
+    <Property Type="Double" Name="TotalCost" Nullable="true" />
+    <Property Type="Double" Name="ExpectedClientPrice" Nullable="true" />
+    <Property Type="String" Name="RackId" Nullable="true" MaxLength="300" />
+  </ComplexType>
+  <ComplexType Name="prSalesReportDetails_Result">
+    <Property Type="Int32" Name="ProductCode" Nullable="true" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="Double" Name="UnitPrice" Nullable="true" />
+    <Property Type="Double" Name="ActualPrice" Nullable="true" />
+    <Property Type="Double" Name="TotalCost" Nullable="true" />
+    <Property Type="Double" Name="ExpectedClientPrice" Nullable="true" />
+    <Property Type="String" Name="InsertDate" Nullable="true" MaxLength="11" />
+    <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+    <Property Type="String" Name="InsertedBy" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="RestOfAmount" Nullable="true" />
+    <Property Type="String" Name="RackId" Nullable="false" MaxLength="300" />
+  </ComplexType>
+  <ComplexType Name="prSalesProduct_Result">
+    <Property Type="Int32" Name="ProductCode" Nullable="true" />
+    <Property Type="String" Name="ProductName" Nullable="true" MaxLength="50" />
+    <Property Type="Double" Name="ClientUnitPrice" Nullable="true" />
+    <Property Type="Int32" Name="Quentity" Nullable="false" />
+    <Property Type="Int32" Name="RestOfItem" Nullable="true" />
+    <Property Type="String" Name="Rack" Nullable="true" MaxLength="50" />
+  </ComplexType>
+</Schema>

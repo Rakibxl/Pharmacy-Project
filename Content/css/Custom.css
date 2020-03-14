@@ -1,0 +1,33 @@
+#errorMessage{
+    text-align:center;
+    font-size:13pt;
+}
+.main-sidebar{
+    padding-top:30px;
+}
+.container-full{
+    width:100%!important;
+}
+.padding-top-left-right{
+    padding-left:10px!important;
+    padding-right:10px!important;
+    padding-top:30px!important;
+}
+
+#productList
+{
+    font-size:15px;
+}
+/*.report-template {
+    background-color:#808080!important;
+}*/
+.report-table th, .report-table td{
+    background-color:#b9c9fe!important;
+}
+.report-table tbody tr td {
+    background-color:#e8edff!important;
+}
+
+.report-table tbody tr:hover td {
+    background-color:#aabcfe!important;
+}

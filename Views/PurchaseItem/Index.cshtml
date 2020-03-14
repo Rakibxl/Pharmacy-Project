@@ -1,0 +1,203 @@
+﻿@model IEnumerable<PH_Management.Models.PurchaseItem>
+
+
+
+
+
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            <a href="@Url.Action("Create", "PurchaseItem")"><i class="fa fa-circle-o"></i> Add Purchase</a>
+        </h1>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <!-- <li><a href="#">Tables</a></li> -->
+
+            <li class="active">inventory</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <!-- <div class="box-header">
+                        <h3 class="box-title">Data Table With Full Features</h3>
+                    </div> -->
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table id="example1" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>ProductCode</th>
+                                    <th>Quantity</th>
+                                    <th>UnitPrice</th>
+                                    <th>ClientPrice</th>
+                                    <th>insertdate</th>
+                                    <th>insertedby</th>
+                                    <th>Remarks</th>
+
+
+
+
+                                    <th>edit/delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProductCode)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Quantity)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UnitPrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ClientPrice)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InsertDate)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.InsertedBy)
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Remarks)
+                                        </td>
+                                        <td>
+                                            @*<button class="btn btn-warning btn-xs" data-toggle="modal" data-target="#edit">
+                                                    <span class="fa fa-pencil-square-o"></span>
+
+                                                </button>*@
+
+                                            <a data-toggle="modal" href="#" onclick="Edit('@item.RecordID')" class="btn btn-warning btn-xs"><i class="fa fa-pencil-square-o"></i></a>
+
+                                            @*<button class="btn btn-danger btn-xs" onclick="delModal('@item.ProductCode')">
+                                                <span class="glyphicon glyphicon-trash"></span>*@
+                                            <a data-toggle="modal" href="#" onclick="delModal('@item.RecordID')" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
+                                            @*</button>*@
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                        </table>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+
+
+@*Delete Modal*@
+<div class="modal fade" id="DeleteModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <h2 class="modal-h2">Are you sure?</h2>
+            <div class="modal-body">
+                <p>Purchase Data will be deleted</p>
+                <input id="RID2" type="hidden" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn rl-btn-info btn-info" onclick="Delete()">Yes</button>
+                <button type="button" class="btn rl-btn-info btn-info" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./wrapper -->
+
+
+
+<input id="RID" type="hidden" />
+
+<script type="text/javascript">
+
+        function Edit(veid) {
+            debugger;
+            $("#RID").val(veid);
+            window.location.href = "/Product/Edit";
+
+
+        }
+
+
+        function delModal(veid) {
+            document.getElementById('RID2').value = veid;
+            $('#DeleteModal').modal('show');
+
+        }
+
+
+
+        function Delete() {
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '@Url.Action("Deletes", "PurchaseItem")',
+                data: {
+                    id: $("#RID2").val()
+                },
+                success: function (result) {
+                    alert(result);
+                    window.location.href = "/PurchaseItem/Index";
+
+                },
+                error: function (xhr, ajaxOptions, error) {
+                    // alert(xhr.status);
+                    //alert(xhr.responseText);
+                    //alert(error);
+                }
+            });
+        }
+</script>
+
+
+
+
+<script type="text/javascript">
+    function EditProduct() {
+        var productname = $("#ProductName").val();
+        var manufacturerName = $("#ManufacturerName").val();
+        var frequency = $("#Frequency").val();
+        var producttypecode = $("#Category").val();
+        var rackid = $("#RackID").val();
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: '@Url.Action("Edit", "Product")',
+            data: {  "ProductName": productname, "ManufacturerName": manufacturerName, "Frequency": frequency, "ProductTypeCode": producttypecode, "RackID": rackid },
+            success: function (result) {
+                alert(result);
+            },
+            error: function (xhr, ajaxOptions, error) {
+                // alert(xhr.status);
+                //alert(xhr.responseText);
+                //alert(error);
+            }
+        });
+    }
+
+
+    $(function () {
+        $("#example1").dataTable();
+    })
+</script>
+

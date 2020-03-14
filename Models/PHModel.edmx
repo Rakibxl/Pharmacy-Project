@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PharmacyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="varchar" MaxLength="50" />
+          <Property Name="Occupation" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile" Type="int" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeerId" />
+          </Key>
+          <Property Name="EmployeerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="50" />
+          <Property Name="FathersName" Type="varchar" MaxLength="50" />
+          <Property Name="MothersName" Type="varchar" MaxLength="50" />
+          <Property Name="PresentAddress" Type="varchar" MaxLength="50" />
+          <Property Name="PermanentAddress" Type="varchar" MaxLength="50" />
+          <Property Name="NationalId" Type="int" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="Religion" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile" Type="int" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+          </Key>
+          <Property Name="ProductCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="50" />
+          <Property Name="ManufacturerName" Type="varchar" MaxLength="50" />
+          <Property Name="Frequency" Type="varchar" MaxLength="50" />
+          <Property Name="ProductTypeCode" Type="int" />
+          <Property Name="RackID" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="ProductTypeCode" />
+          </Key>
+          <Property Name="ProductTypeCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductType" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PurchaseItem">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductCode" Type="int" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="UnitPrice" Type="float" />
+          <Property Name="TotalCost" Type="float" />
+          <Property Name="ClientPrice" Type="float" />
+          <Property Name="UnitType" Type="varchar" MaxLength="50" />
+          <Property Name="ActionType" Type="varchar" MaxLength="50" />
+          <Property Name="RestOfAmount" Type="int" />
+          <Property Name="Remarks" Type="varchar" MaxLength="50" />
+          <Property Name="InsertDate" Type="datetime" />
+          <Property Name="InsertedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+          <Property Name="RackId" Type="nvarchar" MaxLength="50" />
+          <Property Name="InvoiceNo" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Rack">
+          <Key>
+            <PropertyRef Name="RackId" />
+          </Key>
+          <Property Name="RackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="UserId" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" />
+          <Property Name="PassWord" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="prGetProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Type" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="prISalesIntem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="Quantity" Type="decimal" Mode="In" />
+          <Parameter Name="UnitPrice" Type="nvarchar" Mode="In" />
+          <Parameter Name="TotoalCost" Type="nvarchar" Mode="In" />
+          <Parameter Name="RestOfAmount" Type="decimal" Mode="In" />
+          <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+          <Parameter Name="CreationDate" Type="datetime" Mode="In" />
+          <Parameter Name="Optional" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="prPurchaseItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductCode" Type="int" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+          <Parameter Name="UnitPrice" Type="float" Mode="In" />
+          <Parameter Name="ClintPrice" Type="float" Mode="In" />
+          <Parameter Name="ActionType" Type="nvarchar" Mode="In" />
+          <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+          <Parameter Name="InsertDate" Type="datetime" Mode="In" />
+          <Parameter Name="InsertedBy" Type="nvarchar" Mode="In" />
+          <Parameter Name="InvoiceNo" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="prSalesProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="Type" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="prSalesReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="prSalesReportDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PharmacyModelStoreContainer">
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PurchaseItem" EntityType="Self.PurchaseItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rack" EntityType="Self.Rack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PharmacyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PharmacyEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="prGetProduct" ReturnType="Collection(PharmacyModel.prGetProduct_Result)">
+          <Parameter Name="Type" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="prISalesIntem">
+            <Parameter Name="ProductCode" Mode="In" Type="String" />
+            <Parameter Name="Quantity" Mode="In" Type="Decimal" />
+            <Parameter Name="UnitPrice" Mode="In" Type="String" />
+            <Parameter Name="TotoalCost" Mode="In" Type="String" />
+            <Parameter Name="RestOfAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="UserID" Mode="In" Type="String" />
+            <Parameter Name="CreationDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Optional" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Customers" EntityType="PharmacyModel.Customer" />
+          <EntitySet Name="Employees" EntityType="PharmacyModel.Employee" />
+          <EntitySet Name="Products" EntityType="PharmacyModel.Product" />
+          <EntitySet Name="ProductCategories" EntityType="PharmacyModel.ProductCategory" />
+          <EntitySet Name="PurchaseItems" EntityType="PharmacyModel.PurchaseItem" />
+          <EntitySet Name="Racks" EntityType="PharmacyModel.Rack" />
+          <EntitySet Name="Users" EntityType="PharmacyModel.User" />
+          <FunctionImport Name="prSalesReport" ReturnType="Collection(PharmacyModel.prSalesReport_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ProductCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="prSalesReportDetails" ReturnType="Collection(PharmacyModel.prSalesReportDetails_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="ProductCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="prPurchaseItem">
+            <Parameter Name="ProductCode" Mode="In" Type="Int32" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+            <Parameter Name="UnitPrice" Mode="In" Type="Double" />
+            <Parameter Name="ClintPrice" Mode="In" Type="Double" />
+            <Parameter Name="ActionType" Mode="In" Type="String" />
+            <Parameter Name="Remarks" Mode="In" Type="String" />
+            <Parameter Name="InsertDate" Mode="In" Type="DateTime" />
+            <Parameter Name="InsertedBy" Mode="In" Type="String" />
+            <Parameter Name="InvoiceNo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="prSalesProduct" ReturnType="Collection(PharmacyModel.prSalesProduct_Result)">
+            <Parameter Name="ProductCode" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="prGetProduct_Result">
+          <Property Type="Int32" Name="ProductCode" Nullable="false" />
+          <Property Type="String" Name="ManufacturerName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Frequency" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ProductType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="RackID" Nullable="true" MaxLength="300" />
+        </ComplexType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeerId" />
+          </Key>
+          <Property Name="EmployeerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FathersName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MothersName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PresentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PermanentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NationalId" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Religion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mobile" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductCode" />
+          </Key>
+          <Property Name="ProductCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Frequency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductTypeCode" Type="Int32" />
+          <Property Name="RackID" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ProductCategory">
+          <Key>
+            <PropertyRef Name="ProductTypeCode" />
+          </Key>
+          <Property Name="ProductTypeCode" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PurchaseItem">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductCode" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="UnitPrice" Type="Double" />
+          <Property Name="TotalCost" Type="Double" />
+          <Property Name="ClientPrice" Type="Double" />
+          <Property Name="UnitType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ActionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RestOfAmount" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InsertDate" Type="DateTime" Precision="3" />
+          <Property Name="InsertedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="RackId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Rack">
+          <Key>
+            <PropertyRef Name="RackId" />
+          </Key>
+          <Property Name="RackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="prSalesReport_Result">
+          <Property Type="Int32" Name="ProductCode" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Double" Name="UnitPrice" Nullable="true" />
+          <Property Type="Double" Name="ActualPrice" Nullable="true" />
+          <Property Type="Double" Name="TotalCost" Nullable="true" />
+          <Property Type="Double" Name="ExpectedClientPrice" Nullable="true" />
+          <Property Type="String" Name="RackId" Nullable="true" MaxLength="300" />
+        </ComplexType>
+        <ComplexType Name="prSalesReportDetails_Result">
+          <Property Type="Int32" Name="ProductCode" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Quantity" Nullable="true" />
+          <Property Type="Double" Name="UnitPrice" Nullable="true" />
+          <Property Type="Double" Name="ActualPrice" Nullable="true" />
+          <Property Type="Double" Name="TotalCost" Nullable="true" />
+          <Property Type="Double" Name="ExpectedClientPrice" Nullable="true" />
+          <Property Type="String" Name="InsertDate" Nullable="true" MaxLength="11" />
+          <Property Type="DateTime" Name="UpdateDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="InsertedBy" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="RestOfAmount" Nullable="true" />
+          <Property Type="String" Name="RackId" Nullable="false" MaxLength="300" />
+        </ComplexType>
+        <ComplexType Name="prSalesProduct_Result">
+          <Property Type="Int32" Name="ProductCode" Nullable="true" />
+          <Property Type="String" Name="ProductName" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="ClientUnitPrice" Nullable="true" />
+          <Property Type="Int32" Name="Quentity" Nullable="false" />
+          <Property Type="Int32" Name="RestOfItem" Nullable="true" />
+          <Property Type="String" Name="Rack" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PharmacyModelStoreContainer" CdmEntityContainer="PharmacyEntities" >
+          <FunctionImportMapping FunctionImportName="prGetProduct" FunctionName="PharmacyModel.Store.prGetProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PharmacyModel.prGetProduct_Result">
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="RackID" ColumnName="RackID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="prISalesIntem" FunctionName="PharmacyModel.Store.prISalesIntem" />
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="PharmacyModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Occupation" ColumnName="Occupation" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="PharmacyModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="NationalId" ColumnName="NationalId" />
+                <ScalarProperty Name="PermanentAddress" ColumnName="PermanentAddress" />
+                <ScalarProperty Name="PresentAddress" ColumnName="PresentAddress" />
+                <ScalarProperty Name="MothersName" ColumnName="MothersName" />
+                <ScalarProperty Name="FathersName" ColumnName="FathersName" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeerId" ColumnName="EmployeerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="PharmacyModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="RackID" ColumnName="RackID" />
+                <ScalarProperty Name="ProductTypeCode" ColumnName="ProductTypeCode" />
+                <ScalarProperty Name="Frequency" ColumnName="Frequency" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductCategories">
+            <EntityTypeMapping TypeName="PharmacyModel.ProductCategory">
+              <MappingFragment StoreEntitySet="ProductCategory">
+                <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="ProductTypeCode" ColumnName="ProductTypeCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PurchaseItems">
+            <EntityTypeMapping TypeName="PharmacyModel.PurchaseItem">
+              <MappingFragment StoreEntitySet="PurchaseItem">
+                <ScalarProperty Name="InvoiceNo" ColumnName="InvoiceNo" />
+                <ScalarProperty Name="RackId" ColumnName="RackId" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="RestOfAmount" ColumnName="RestOfAmount" />
+                <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+                <ScalarProperty Name="UnitType" ColumnName="UnitType" />
+                <ScalarProperty Name="ClientPrice" ColumnName="ClientPrice" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Racks">
+            <EntityTypeMapping TypeName="PharmacyModel.Rack">
+              <MappingFragment StoreEntitySet="Rack">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="RackId" ColumnName="RackId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PharmacyModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="prSalesReport" FunctionName="PharmacyModel.Store.prSalesReport">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PharmacyModel.prSalesReport_Result">
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ActualPrice" ColumnName="ActualPrice" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="ExpectedClientPrice" ColumnName="ExpectedClientPrice" />
+                <ScalarProperty Name="RackId" ColumnName="RackId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="prSalesReportDetails" FunctionName="PharmacyModel.Store.prSalesReportDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PharmacyModel.prSalesReportDetails_Result">
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ActualPrice" ColumnName="ActualPrice" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="ExpectedClientPrice" ColumnName="ExpectedClientPrice" />
+                <ScalarProperty Name="InsertDate" ColumnName="InsertDate" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="InsertedBy" ColumnName="InsertedBy" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="RestOfAmount" ColumnName="RestOfAmount" />
+                <ScalarProperty Name="RackId" ColumnName="RackId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="prPurchaseItem" FunctionName="PharmacyModel.Store.prPurchaseItem" />
+          <FunctionImportMapping FunctionImportName="prSalesProduct" FunctionName="PharmacyModel.Store.prSalesProduct">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PharmacyModel.prSalesProduct_Result">
+                <ScalarProperty Name="ProductCode" ColumnName="ProductCode" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ClientUnitPrice" ColumnName="ClientUnitPrice" />
+                <ScalarProperty Name="Quentity" ColumnName="Quentity" />
+                <ScalarProperty Name="RestOfItem" ColumnName="RestOfItem" />
+                <ScalarProperty Name="Rack" ColumnName="Rack" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

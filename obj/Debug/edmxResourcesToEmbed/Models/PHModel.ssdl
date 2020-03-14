@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PharmacyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+    </Key>
+    <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="varchar" MaxLength="50" />
+    <Property Name="Occupation" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="int" />
+    <Property Name="Remarks" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeerId" />
+    </Key>
+    <Property Name="EmployeerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeName" Type="varchar" MaxLength="50" />
+    <Property Name="FathersName" Type="varchar" MaxLength="50" />
+    <Property Name="MothersName" Type="varchar" MaxLength="50" />
+    <Property Name="PresentAddress" Type="varchar" MaxLength="50" />
+    <Property Name="PermanentAddress" Type="varchar" MaxLength="50" />
+    <Property Name="NationalId" Type="int" />
+    <Property Name="Gender" Type="varchar" MaxLength="50" />
+    <Property Name="Religion" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="int" />
+    <Property Name="Remarks" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductCode" />
+    </Key>
+    <Property Name="ProductCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="50" />
+    <Property Name="ManufacturerName" Type="varchar" MaxLength="50" />
+    <Property Name="Frequency" Type="varchar" MaxLength="50" />
+    <Property Name="ProductTypeCode" Type="int" />
+    <Property Name="RackID" Type="nvarchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="ProductCategory">
+    <Key>
+      <PropertyRef Name="ProductTypeCode" />
+    </Key>
+    <Property Name="ProductTypeCode" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductType" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PurchaseItem">
+    <Key>
+      <PropertyRef Name="RecordID" />
+    </Key>
+    <Property Name="RecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductCode" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="UnitPrice" Type="float" />
+    <Property Name="TotalCost" Type="float" />
+    <Property Name="ClientPrice" Type="float" />
+    <Property Name="UnitType" Type="varchar" MaxLength="50" />
+    <Property Name="ActionType" Type="varchar" MaxLength="50" />
+    <Property Name="RestOfAmount" Type="int" />
+    <Property Name="Remarks" Type="varchar" MaxLength="50" />
+    <Property Name="InsertDate" Type="datetime" />
+    <Property Name="InsertedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="RackId" Type="nvarchar" MaxLength="50" />
+    <Property Name="InvoiceNo" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Rack">
+    <Key>
+      <PropertyRef Name="RackId" />
+    </Key>
+    <Property Name="RackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+    <Property Name="UserId" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="varchar" MaxLength="50" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="PassWord" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Function Name="prGetProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="prISalesIntem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="Quantity" Type="decimal" Mode="In" />
+    <Parameter Name="UnitPrice" Type="nvarchar" Mode="In" />
+    <Parameter Name="TotoalCost" Type="nvarchar" Mode="In" />
+    <Parameter Name="RestOfAmount" Type="decimal" Mode="In" />
+    <Parameter Name="UserID" Type="nvarchar" Mode="In" />
+    <Parameter Name="CreationDate" Type="datetime" Mode="In" />
+    <Parameter Name="Optional" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="prPurchaseItem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductCode" Type="int" Mode="In" />
+    <Parameter Name="Quantity" Type="int" Mode="In" />
+    <Parameter Name="UnitPrice" Type="float" Mode="In" />
+    <Parameter Name="ClintPrice" Type="float" Mode="In" />
+    <Parameter Name="ActionType" Type="nvarchar" Mode="In" />
+    <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+    <Parameter Name="InsertDate" Type="datetime" Mode="In" />
+    <Parameter Name="InsertedBy" Type="nvarchar" Mode="In" />
+    <Parameter Name="InvoiceNo" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="prSalesProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+    <Parameter Name="Type" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="prSalesReport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="prSalesReportDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="ProductCode" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="PharmacyModelStoreContainer">
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductCategory" EntityType="Self.ProductCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PurchaseItem" EntityType="Self.PurchaseItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rack" EntityType="Self.Rack" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>
